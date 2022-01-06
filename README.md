@@ -1,4 +1,6 @@
 # GifsApp
+![image](https://user-images.githubusercontent.com/54670092/148434432-ebe1275b-dbf2-46df-b882-28583ea1f92d.png)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.3.
 
