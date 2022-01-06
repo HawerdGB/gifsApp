@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Gif, SearchGIFResponse } from '../interface/gifs.interface';
 
@@ -7,6 +7,7 @@ import { Gif, SearchGIFResponse } from '../interface/gifs.interface';
 })
 export class GifsService {
 private apiKey : string = 'wvNY1hte3cNF31Ii45OLWDkjsRukxqZn';
+private servicioUrl : string = 'https://api.giphy.com/v1/gifs';
  private _historial : string[] = [];
 
  public resultados: Gif[] = [];
@@ -37,7 +38,13 @@ query = query.trim().toLowerCase();
   }
 
   //este metodo que nos proporciona angular a traves del HttpClient, usando
-  this.http.get<SearchGIFResponse>(`https://api.giphy.com/v1/gifs/search?api_key=wvNY1hte3cNF31Ii45OLWDkjsRukxqZn&q=${ query }&limit=10`)
+const params = new HttpParams()
+              .set('api_key', this.apiKey)
+              .set('q', query)
+              .set('limit', '10');
+
+
+  this.http.get<SearchGIFResponse>(`${this.servicioUrl}/search`,{ params })
   .subscribe( resp => {
    // console.log(resp.data);
     this.resultados = resp.data;
@@ -53,6 +60,11 @@ query = query.trim().toLowerCase();
 //const resp =  await fetch('https://api.giphy.com/v1/gifs/search?api_key=wvNY1hte3cNF31Ii45OLWDkjsRukxqZn&q=dbz&limit=10');
 //const data = await resp.json();
 //console.log(data);
+
+//para SearchGifResponse se uso el website app.quicktype.io, se copio el resultado del postman
+//se pego en la web , se elige el lenguaje Typescript , y da el formato para crear la interface que servira para el tipado
+
+//para animaciones website https://animate.style/
 
  }
 }
